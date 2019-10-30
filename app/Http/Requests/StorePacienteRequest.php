@@ -36,10 +36,12 @@ class StorePacienteRequest extends FormRequest
                 'max:12',
                 'required',
             ],
-            'fone_comercial' => [
-                'min:7',
-                'max:12',
-            ],
+
+            // 'fone_comercial' => [
+            //     'min:7',
+            //     'max:12',
+            //],
+            
             'endereco'       => [
                 'min:10',
                 'max:200',
