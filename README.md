@@ -24,6 +24,7 @@ Password:	password
 **Pendência**
 
 1. Calendário como Google Calendar
-2. Remover editar e excluir do atendimento e do paciente, adicionar uma observação (N observações)
-3. Imprimir em sequencia um relatorio de todos os prontuários de um paciente específico, no cabeçalho os dados do paciente e anexos (extra)
-4. Corrigir local de arquivos
+2. Remover editar e excluir do atendimento e do paciente, 
+3. Adicionar observações, que fiquem como "avisos" (N observações)
+4. Imprimir em sequencia um relatorio de todos os prontuários de um paciente específico, no cabeçalho os dados do paciente e anexos (extra)
+5. Corrigir local de arquivos
