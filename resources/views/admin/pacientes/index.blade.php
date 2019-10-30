@@ -111,9 +111,9 @@
                             <td>
                                 @if($paciente->documento)
                                     @foreach($paciente->documento as $key => $media)
-                                        <a href="{{ $media->getUrl() }}" target="_blank">
+                                        <a href="{{ $media->getFullUrl() }}" target="_blank">
                                             {{ trans('global.view_file') }}
-                                        </a>
+                                        </a><br>
                                     @endforeach
                                 @endif
                             </td>

@@ -27,4 +27,4 @@ Password:	password
 2. Remover editar e excluir do atendimento e do paciente, 
 3. Adicionar observações, que fiquem como "avisos" (N observações)
 4. Imprimir em sequencia um relatorio de todos os prontuários de um paciente específico, no cabeçalho os dados do paciente e anexos (extra)
-5. Corrigir local de arquivos
+5. Corrigir visualização de documentos.

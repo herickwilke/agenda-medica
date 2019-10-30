@@ -88,8 +88,8 @@
                                 @if($atendimento->documento)
                                     @foreach($atendimento->documento as $key => $media)
                                         <a href="{{ $media->getUrl() }}" target="_blank">
-                                            {{ trans('global.view_file') }}
-                                        </a>
+                                                {{ trans('global.view_file') }}
+                                        </a><br>
                                     @endforeach
                                 @endif
                             </td>
