@@ -59,7 +59,7 @@ class StorePacienteRequest extends FormRequest
             ],
             'cep'            => [
                 'min:8',
-                'max:8',
+                'max:9',
                 'required',
             ],
             'estado'         => [
