@@ -21,6 +21,8 @@ git clone https://repositorio.faers.com.br/herickwilke/vendor
 
 5. Copiar a pasta clonada chamada "vendor" para a pasta raíz do trabalho. Confirmar para *substituir* os arquivos.
 
+<br>
+
 ## Executar o projeto:
 
 1. Rodar o comando na raiz do projeto:
