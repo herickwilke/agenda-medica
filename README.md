@@ -25,12 +25,12 @@ git clone https://repositorio.faers.com.br/herickwilke/vendor
 
 ## Executar o projeto:
 
-1. Rodar o comando na raiz do projeto:
+- Rodar o comando na raiz do projeto:
 
 ```
 php artisan serve
 ```
-2. Fazer login:
+- Fazer login:
 
 Username:	admin@admin.com <br>
 Password:	password 
