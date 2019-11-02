@@ -43,3 +43,4 @@ php artisan serve
 3. Adicionar observações, que fiquem como "avisos" (N observações)
 4. Imprimir em sequencia um relatorio de todos os prontuários de um paciente específico, no cabeçalho os dados do paciente e anexos (extra)
 5. Corrigir visualização de documentos.
+6. Badge alerta que indica as observações.
