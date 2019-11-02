@@ -151,6 +151,7 @@
 @section('scripts')
 @parent
 <script>
+
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('paciente_delete')
@@ -184,10 +185,11 @@
 @endcan
 
   $.extend(true, $.fn.dataTable.defaults, {
-    order: [[ 1, 'desc' ]],
+    order: [[ 1, 'desc' ]], 
     pageLength: 100,
+    "language": { select: {rows: "%d linhas selecionadas"}},
   });
-  $('.datatable-Paciente:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  $('.datatable-Paciente:not(.ajaxTable)').DataTable({ buttons: dtButtons   })
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
             .columns.adjust();
