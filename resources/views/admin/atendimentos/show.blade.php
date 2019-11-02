@@ -76,6 +76,16 @@
                     </tr>
                 </tbody>
             </table>
+
+            <br>
+            <br>
+
+            <h3>Observações</h3>
+
+            <br>
+
+            @comments(['model' => $atendimento])
+
             <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">
                 {{ trans('global.back_to_list') }}
             </a>
