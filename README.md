@@ -1,4 +1,4 @@
-**Instalação do projeto**
+# Instalação do projeto
 
 1. Clonar o projeto;
 
@@ -21,20 +21,21 @@ git clone https://repositorio.faers.com.br/herickwilke/vendor
 
 5. Copiar a pasta clonada chamada "vendor" para a pasta raíz do trabalho. Confirmar para *substituir* os arquivos.
 
-6. Executar o projeto:
+## Executar o projeto:
+
+1. Rodar o comando na raiz do projeto:
+
 ```
 php artisan serve
 ```
-
-<br>
-Fazer login:
+2. Fazer login:
 
 Username:	admin@admin.com <br>
 Password:	password 
 
 <br>
 
-**Pendência**
+**Pendências**
 
 1. Calendário como Google Calendar
 2. Remover editar e excluir do atendimento e do paciente, 
