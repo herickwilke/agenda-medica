@@ -17,6 +17,24 @@ class AtendimentoController extends Controller
 {
     use MediaUploadingTrait;
 
+    public function ajaxUpdate(Request $request)
+    {
+        $atendimento = Atendimento::with('paciente')->findOrFail($request->atendimento_id);
+
+        $atendimento->update($request->all());
+
+        return response()->json(['atendimento' => $atendimento]);
+    }
+
+    public function ajaxUpdateDrop(Request $request) 
+    {
+        $atendimento = Atendimento::with('paciente')->findOrFail($request->atendimento_id);
+
+        $atendimento->update($request->all());
+
+        return response()->json(['atendimento' => $atendimento]);
+    }
+
     public function index()
     {
         abort_if(Gate::denies('atendimento_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

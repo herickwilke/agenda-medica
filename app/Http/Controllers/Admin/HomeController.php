@@ -6,8 +6,45 @@ use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class HomeController
 {
+    public $sources = [
+        [
+            'modelAtendimento'      => '\\App\\Atendimento',
+            'modelPaciente'         => '\\App\\Paciente',
+            'date_field' => 'data',
+            'field'      => 'data',
+            'prefix'     => 'Atendimento',
+            'suffix'     => '',
+            'route'      => 'admin.atendimentos.edit',
+        ],
+    ];
+    
     public function index()
     {
+        $events = [];
+
+        foreach ($this->sources as $source) {
+            foreach ($source['modelAtendimento']::all() as $model) {
+                $crudFieldValue = $model->getOriginal($source['date_field']);
+
+                if (!$crudFieldValue) {
+                    continue;
+                }
+
+                $paciente = $source['modelPaciente']::find($model->id);
+                
+                $events[] = [
+                    'id' => $paciente['id'],
+                    'nome' => $paciente['nome'],
+                    'data' => $model->data,
+                    'hora' => $model->hora,
+                    'procedimento' => $model->procedimento,
+                    'duracao' => $model->duracao,
+                    'title' => trim($paciente['nome'] . " - " . date('H:i', strtotime($model->hora))),
+                    'start' => $crudFieldValue
+                ];
+            }
+        }
+
         $settings1 = [
             'chart_title'           => 'Prontuários',
             'chart_type'            => 'number_block',
@@ -190,6 +227,6 @@ class HomeController
                 ->{$settings4['aggregate_function'] ?? 'count'}($settings4['aggregate_field'] ?? '*');
         }
 
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4'));
+        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'events'));
     }
 }
