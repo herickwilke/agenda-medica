@@ -30,11 +30,10 @@ git clone https://repositorio.faers.com.br/herickwilke/vendor
 ```
 php artisan serve
 ```
-- Fazer login: <br>
-```
-Usuário: admin@admin.com
-Senha: password 
-```
+## Fazer login: ## 
+- Usuário: admin@admin.com
+- Senha: password 
+
 <br>
 
 **Pendências**
