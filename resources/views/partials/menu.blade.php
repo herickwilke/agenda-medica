@@ -96,7 +96,7 @@
                         </ul>
                     </li>
                 @endcan
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ route("admin.systemCalendar") }}" class="nav-link {{ request()->is('admin/system-calendar') || request()->is('admin/system-calendar/*') ? 'active' : '' }}">
                         <i class="fas fa-fw fa-calendar">
 
@@ -105,7 +105,7 @@
                             <span>{{ trans('global.systemCalendar') }}</span>
                         </p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                         <p>

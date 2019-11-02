@@ -27,6 +27,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('atendimentos/destroy', 'AtendimentoController@massDestroy')->name('atendimentos.massDestroy');
     Route::post('atendimentos/media', 'AtendimentoController@storeMedia')->name('atendimentos.storeMedia');
     Route::resource('atendimentos', 'AtendimentoController');
-
+    Route::post('atendimentos_ajax_update', 
+        ['uses' => 'AtendimentoController@ajaxUpdate', 'as' => 'atendimentos.ajax_update']);
+    Route::post('atendimentos_save_event_drop', 
+        ['uses' => 'AtendimentoController@ajaxUpdateDrop', 'as' => 'atendimentos.save_event_drop']);
+    
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
 });
