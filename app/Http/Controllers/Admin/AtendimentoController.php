@@ -19,7 +19,6 @@ class AtendimentoController extends Controller
 
     public function ajaxUpdate(Request $request)
     {
-        print_r($request); exit;
         $atendimento = Atendimento::with('paciente')->findOrFail($request->atendimento_id);
 
         $atendimento->update($request->all());
@@ -29,7 +28,6 @@ class AtendimentoController extends Controller
 
     public function ajaxUpdateDrop(Request $request) 
     {
-        print_r($request); exit;
         $atendimento = Atendimento::with('paciente')->findOrFail($request->atendimento_id);
 
         $atendimento->update($request->all());
