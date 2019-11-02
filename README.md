@@ -14,14 +14,14 @@ php artisan storage:link
 
 ```
 
-4. Após este procedimento, ir para "Área de trabalho" ou outro destino que não seja a raiz do projeto e clonar o repositório:
+- Após este procedimento, ir para "Área de trabalho" ou outro destino que não seja a raiz do projeto e clonar o repositório:
 ```
 git clone https://repositorio.faers.com.br/herickwilke/vendor
 ```
 
-5. Copiar a pasta clonada chamada "vendor" para a pasta raíz do trabalho. Confirmar para *substituir* os arquivos.
+- Copiar a pasta clonada chamada "vendor" para a pasta raíz do trabalho. Confirmar para *substituir* os arquivos.
 
-6. Executar o projeto:
+- Executar o projeto:
 ```
 php artisan serve
 ```
