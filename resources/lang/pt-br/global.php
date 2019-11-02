@@ -59,6 +59,7 @@ return [
         'colvis'        => 'Colunas Visíveis',
         'delete'        => 'Eliminar Selecionados',
         'zero_selected' => 'Nenhuma linha selecionada',
+        'entry'         => 'Teste',
     ],
     'action'                               => 'Ação',
     'action_id'                            => 'ID de ação',
