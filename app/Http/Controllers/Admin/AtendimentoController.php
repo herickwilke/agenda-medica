@@ -26,6 +26,19 @@ class AtendimentoController extends Controller
         return response()->json(['atendimento' => $atendimento]);
     }
 
+    public function ajaxNew(Request $request)
+    {
+        $atendimento = new Atendimento();
+        
+        $atendimento->create($request->all());
+
+        if (!$atendimento == false) {
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['error' => true]);
+    }
+
     public function ajaxUpdateDrop(Request $request) 
     {
         $atendimento = Atendimento::with('paciente')->findOrFail($request->atendimento_id);

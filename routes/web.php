@@ -29,6 +29,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('atendimentos', 'AtendimentoController');
     Route::post('atendimentos_ajax_update', 
         ['uses' => 'AtendimentoController@ajaxUpdate', 'as' => 'atendimentos.ajax_update']);
+    Route::post('atendimentos_ajax_new', 
+        ['uses' => 'AtendimentoController@ajaxNew', 'as' => 'atendimentos.ajax_new']);
     Route::post('atendimentos_save_event_drop', 
         ['uses' => 'AtendimentoController@ajaxUpdateDrop', 'as' => 'atendimentos.save_event_drop']);
     

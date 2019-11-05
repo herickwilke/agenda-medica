@@ -71,7 +71,7 @@
             <input type="hidden" name="event_id" id="event_id" value="" />
             <input type="hidden" name="atendimento_id" id="atendimento_id" value="" />
             <div class="modal-header border-bottom-0">
-                <h5 class="modal-title" id="exampleModalLabel">Atendimento</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Atendimento #<span id="numberAtd"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -79,35 +79,83 @@
             <form>
             <div class="modal-body">
                 <div class="form-group">
-                    <label >Paciente</label>
-                    <input type="text" class="form-control" name="nome" id="nome" disabled="disabled" placeholder="Paciente">
+                    <label>Paciente</label>
+                    <input class="form-control" name="selectPacienteEdit" id="selectPacienteEdit" disabled/>
                 </div>
                 <div class="form-group">
                     <label >Data</label>
-                    <input type="text" id="date" name="date" class="form-control date" value="{{ old('data', isset($atendimento) ? $atendimento->data : '') }}" required>
+                    <input type="text" id="date" name="date" disabled class="form-control date" value="{{ old('data', isset($atendimento) ? $atendimento->data : '') }}" required>
                 </div>
                 <div class="form-group">
                     <label>Procedimento</label>
-                    <input type="text" class="form-control" name="procedimento" id="procedimento" placeholder="Procedimento">
+                    <input type="text" class="form-control" disabled name="procedimento" id="procedimento" placeholder="Procedimento">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Hora</label>
-                        <input type="text" id="time" name="time" class="form-control timepicker" value="{{ old('hora', isset($atendimento) ? $atendimento->hora : '') }}" required>
+                        <label>Horário</label>
+                        <input type="text" id="time" name="time" disabled class="form-control timepicker" value="{{ old('hora', isset($atendimento) ? $atendimento->hora : '') }}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Duração</label>
-                        <input type="text" class="form-control" name="duracao" id="duracao" placeholder="Duração">
+                        <input class="form-control" name="selectDuracaoEdit" disabled id="selectDuracaoEdit" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Observação</label>
-                    <input type="text" class="form-control" name="observacao" id="observacao" placeholder="Observação">
+                    <input type="text" class="form-control" name="observacao" disabled id="observacao" placeholder="Observação">
                 </div>
+            </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <input type="button" class="btn btn-primary" id="atendimento_update" value="Salvar">
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel">Novo Atendimento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Paciente*</label>
+                    <select class="form-control" name="selectPaciente" required="required" id="selectPaciente"></select>
+                </div>
+                <div class="form-group">
+                    <label>Data*</label>
+                    <input type="text" id="new_date" name="date" class="form-control date" required="required" value="{{ old('data', isset($atendimento) ? $atendimento->data : '') }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Procedimento*</label>
+                    <select class="form-control" name="selectProcedimento" required="required" id="selectProcedimento"></select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Hora</label>
+                        <input type="text" id="new_time" name="time" required="required" class="form-control timepicker" value="{{ old('hora', isset($atendimento) ? $atendimento->hora : '') }}" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Duração Procedimento*</label>
+                        <select class="form-control" name="selectDuracao" required="required" id="selectDuracao"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Observação</label>
+                    <input type="text" class="form-control" name="observacao" id="new_observacao" placeholder="Observação">
+                </div>
+                <span id="notificacao" style="color: red"></span>
             </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    <input type="button" class="btn btn-primary" id="atendimento_update" value="Salvar">
+                    <input type="button" class="btn btn-primary" id="new_atendimento" value="Criar">
                 </div>
             </form>
         </div>
@@ -136,7 +184,23 @@
     $(document).ready(function () {
             // page is now ready, initialize the calendar...
             events={!! json_encode($events) !!};
-            
+            pacientes={!! json_encode($pacientes) !!};
+            duracoes={!! json_encode($duracoes) !!};
+            procedimentos={!! json_encode($procedimentos) !!};
+
+            $('[name=selectPaciente]').append('<option>' + 'Selecione por favor' + '</option>');
+            $.each(pacientes, function(key, value){
+                $('#selectPaciente').append('<option>' + value.id + ' - ' + value.nome + '</option>');
+            });
+
+            $.each(duracoes, function(key, value){
+                $('[name=selectDuracao]').append('<option>' + value + '</option>');
+            });
+
+            $.each(procedimentos, function(key, value){
+                $('[name=selectProcedimento]').append('<option>' + value + '</option>');
+            });
+    
             $('#calendar').fullCalendar({
                
                 events: events,
@@ -150,13 +214,16 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, allDay) {
-                    console.log('criar o eventSelect');
+                    $('#new_date').val(moment(end._d).format('DD-MM-YYYY'));
+                    $('#selectProcedimento').val(''),
+                    $('#selectDuracao').val(''),
+                    $('#new_observacao').val(''),
+                    $('#new_time').val('00:00:00'),
+                    $('#newModal').modal();
                 },
                 editable: true,
                 droppable: true,
-                events: events,
-                eventDrop: function(drag, event, dayDelta, minuteDelta, allDay, revertFunc) {
-                    console.log('criar evento eventDrop');
+                eventDrop: function(element) {
                     // if (!confirm("Você tem certeza sobre essa mudança?")) {
                     //     revertFunc();
                     // }
@@ -165,17 +232,18 @@
                 eventClick: function(calEvent, jsEvent, view) {
                     $('#event_id').val(calEvent._id);
                     $('#atendimento_id').val(calEvent.id);
-                    $('#nome').val(calEvent.nome);
+                    $('#numberAtd').html(calEvent.id);
+                    $('#selectPacienteEdit').val(calEvent.nome);
                     $('#date').val(moment(calEvent.start).format('DD-MM-YYYY'));
                     $('#time').val(calEvent.hora);
                     $('#procedimento').val(calEvent.procedimento);
-                    $('#duracao').val(calEvent.duracao);
+                    $('#observacao').val(calEvent.observacao);
+                    $('#selectDuracaoEdit').val(calEvent.duracao);
                     $('#editModal').modal();
                 }
             });
 
             function saveEvent(drag, event){
-                console.log(event);
                 $.ajax({
                     url: 'uashuahsusah',
                     type: 'post',
@@ -189,12 +257,18 @@
 
             $('#atendimento_update').click(function(e) {
                 e.preventDefault();
+                let paciente = $('#selectPacienteEdit').val();
+                let paciente_id = paciente.substring(0, 1);
+
                 var data = {
                     _token: '{{ csrf_token() }}',
                     atendimento_id: $('#atendimento_id').val(),
+                    paciente_id: paciente_id,
                     procedimento: $('#procedimento').val(),
                     data: $('#date').val(),
                     hora: $('#time').val(),
+                    duracao: $('#selectDuracaoEdit').val(),
+                    observacoes: $('#observacao').val() 
                 };
 
                 $.post('{{ route('admin.atendimentos.ajax_update') }}', data, function( result ) {
@@ -204,6 +278,72 @@
                     location.reload();
                 });
             });
+
+            $('#new_atendimento').click(function(e) {
+                e.preventDefault();
+
+                validaCampos();
+
+                let paciente = $('#selectPaciente').val();
+                let paciente_id = paciente.substring(0, 1);
+
+                var data = {
+                    _token: '{{ csrf_token() }}',
+                    paciente_id: paciente_id,
+                    data: $('#new_date').val(),
+                    procedimento: $('#selectProcedimento').val(),
+                    duracao: $('#selectDuracao').val(),
+                    observacoes: $('#new_observacao').val(),
+                    hora: $('#new_time').val(),
+                };
+
+                $.post('{{ route('admin.atendimentos.ajax_new') }}', data, function( result ) {
+
+                $('#editModal').modal('hide');
+
+                location.reload();
+                });
+            })
+
+            function validaCampos() {
+
+                var selectPaciente = $('#selectPaciente').find(":selected").text();
+                var selectProcedimento = $('#selectProcedimento').find(":selected").text();
+                var selectDucacao = $('#selectDuracao').find(":selected").text();
+                var dataTime = $('#new_date').val();
+
+                if (selectPaciente == 'Selecione por favor') {
+                    $('#notificacao').html('');
+                    $('#notificacao').html('Selecione um paciente!');
+                    $('#selectPaciente').css('border', '1px solid red');
+                    $('#selectPaciente').focus();
+                    return;
+                }
+
+                else if (selectProcedimento == '') {
+                    $('#notificacao').html('');
+                    $('#notificacao').html('O campo procedimento não pode ficar em branco!');
+                    $('#selectProcedimento').css('border', '1px solid red');
+                    $('#selectProcedimento').focus();
+                    return;
+                }
+
+                else if (selectDucacao == '') {
+                    $('#notificacao').html('');
+                    $('#notificacao').html('O campo duração procedimento não pode ficar em branco!');
+                    $('#selectDuracao').css('border', '1px solid red');
+                    $('#selectDuracao').focus();
+                    return;
+                }
+
+                else if (dataTime == '') {
+                    $('#notificacao').html('');
+                    $('#notificacao').html('O campo data não pode ficar em branco!');
+                    $('#new_date').css('border', '1px solid red');
+                    $('#new_date').focus();
+                    return;
+                }
+            }
         });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>

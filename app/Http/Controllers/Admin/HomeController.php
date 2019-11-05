@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use App\Paciente;
+use App\Atendimento;
 
 class HomeController
 {
@@ -21,7 +23,10 @@ class HomeController
     public function index()
     {
         $events = [];
-
+        $pacientes = Paciente::All();
+        $duracoes = Atendimento::DURACAO_SELECT;
+        $procedimentos = Atendimento::PROCEDIMENTO_SELECT;
+        
         foreach ($this->sources as $source) {
             foreach ($source['modelAtendimento']::all() as $model) {
                 $crudFieldValue = $model->getOriginal($source['date_field']);
@@ -30,16 +35,17 @@ class HomeController
                     continue;
                 }
 
-                $paciente = $source['modelPaciente']::find($model->id);
+                $paciente = $source['modelPaciente']::find($model->paciente_id);
                 
                 $events[] = [
-                    'id' => $paciente['id'],
+                    'id' => $model->id,
                     'nome' => $paciente['nome'],
                     'data' => $model->data,
                     'hora' => $model->hora,
+                    'observacao' => $model->observacoes,
                     'procedimento' => $model->procedimento,
                     'duracao' => $model->duracao,
-                    'title' => trim($paciente['nome'] . " - " . date('H:i', strtotime($model->hora))),
+                    'title' => trim(date('H:i', strtotime($model->hora)) . " - " . $paciente['nome']),
                     'start' => $crudFieldValue
                 ];
             }
@@ -227,6 +233,7 @@ class HomeController
                 ->{$settings4['aggregate_function'] ?? 'count'}($settings4['aggregate_field'] ?? '*');
         }
 
-        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 'events'));
+        return view('home', compact('settings1', 'settings2', 'settings3', 'settings4', 
+                    'events', 'pacientes', 'duracoes', 'procedimentos'));
     }
 }
