@@ -118,9 +118,15 @@
                         <th>
                             {{ trans('cruds.paciente.fields.documento') }}
                         </th>
-                        <td>
-                            {{ $paciente->documento }}
-                        </td>
+                        <th>
+                        @if($paciente->documento)
+                                    @foreach($paciente->documento as $key => $media)
+                                        <a href="{{ $media->getUrl() }}" target="_blank">
+                                                {{ trans('global.view_file') }}
+                                        </a><br>
+                                    @endforeach
+                                @endif
+                        </th>
                     </tr>
                 </tbody>
             </table>
