@@ -28,9 +28,9 @@
                         <th>
                             {{ trans('cruds.atendimento.fields.paciente') }}
                         </th>
-                        <th>
+                        <!-- <th>
                             {{ trans('cruds.paciente.fields.observacoes') }}
-                        </th>
+                        </th> -->
                         <th>
                             {{ trans('cruds.atendimento.fields.procedimento') }}
                         </th>
@@ -66,9 +66,9 @@
                             <td>
                                 {{ $atendimento->paciente->nome ?? '' }}
                             </td>
-                            <td>
+                            <!-- <td>
                                 {{ $atendimento->paciente->observacoes ?? '' }}
-                            </td>
+                            </td> -->
                             <td>
                                 {{ App\Atendimento::PROCEDIMENTO_SELECT[$atendimento->procedimento] ?? '' }}
                             </td>
