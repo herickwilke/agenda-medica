@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use App\Paciente;
 use App\Atendimento;
+use Illuminate\Support\Facades\DB;
 
 class HomeController
 {
@@ -35,8 +36,18 @@ class HomeController
                     continue;
                 }
 
-                $paciente = $source['modelPaciente']::find($model->paciente_id);
+                $comment = DB::select(
+                    'SELECT
+                        b.comment
+                    FROM atendimentos a
+                    JOIN comments b
+                    ON b.commentable_id = a.id
+                    WHERE b.commentable_id = '. $model->id .'');
+
+                $comments[0]['comment'] = json_decode(json_encode($comment), True);
                 
+                $paciente = $source['modelPaciente']::find($model->paciente_id);
+
                 $events[] = [
                     'id' => $model->id,
                     'nome' => $paciente['nome'],
@@ -44,6 +55,7 @@ class HomeController
                     'hora' => $model->hora,
                     'observacao' => $model->observacoes,
                     'procedimento' => $model->procedimento,
+                    'comentarios' => $comments[0]['comment'] ? $comments[0]['comment'] : 'nada',
                     'duracao' => $model->duracao,
                     'title' => trim(date('H:i', strtotime($model->hora)) . " - " . $paciente['nome']),
                     'start' => $crudFieldValue
