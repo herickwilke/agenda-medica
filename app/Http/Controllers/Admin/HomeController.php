@@ -40,8 +40,8 @@ class HomeController
                     'SELECT
                         b.comment
                     FROM atendimentos a
-                    JOIN comments b
-                    ON b.commentable_id = a.id
+                        JOIN comments b
+                        ON b.commentable_id = a.id
                     WHERE b.commentable_id = '. $model->id .'');
 
                 $comments[0]['comment'] = json_decode(json_encode($comment), True);
@@ -55,7 +55,7 @@ class HomeController
                     'hora' => $model->hora,
                     'observacao' => $model->observacoes,
                     'procedimento' => $model->procedimento,
-                    'comentarios' => $comments[0]['comment'] ? $comments[0]['comment'] : 'nada',
+                    'comentarios' => $comments[0]['comment'] ? $comments[0]['comment'] : null,
                     'duracao' => $model->duracao,
                     'title' => trim(date('H:i', strtotime($model->hora)) . " - " . $paciente['nome']),
                     'start' => $crudFieldValue
