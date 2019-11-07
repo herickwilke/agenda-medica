@@ -31,7 +31,7 @@
                             {{ trans('cruds.atendimento.fields.procedimento') }}
                         </th>
                         <td>
-                            {{ App\Atendimento::PROCEDIMENTO_SELECT[$atendimento->procedimento] }}
+                            {{ $atendimento->procedimento }}
                         </td>
                     </tr>
                     <tr>
@@ -55,7 +55,7 @@
                             {{ trans('cruds.atendimento.fields.duracao') }}
                         </th>
                         <td>
-                            {{ App\Atendimento::DURACAO_SELECT[$atendimento->duracao] }}
+                            {{ $atendimento->duracao }}
                         </td>
                     </tr>
                     <tr>

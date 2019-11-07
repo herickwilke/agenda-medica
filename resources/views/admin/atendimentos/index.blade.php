@@ -70,7 +70,7 @@
                                 {{ $atendimento->paciente->observacoes ?? '' }}
                             </td> -->
                             <td>
-                                {{ App\Atendimento::PROCEDIMENTO_SELECT[$atendimento->procedimento] ?? '' }}
+                               {{ $atendimento->procedimento ?? '' }}
                             </td>
                             <td>
                                 {{ $atendimento->data ?? '' }}
@@ -79,7 +79,7 @@
                                 {{ $atendimento->hora ?? '' }}
                             </td>
                             <td>
-                                {{ App\Atendimento::DURACAO_SELECT[$atendimento->duracao] ?? '' }}
+                                {{ $atendimento->duracao ?? '' }}
                             </td>
                             <td>
                                 {{ $atendimento->observacoes ?? '' }}
