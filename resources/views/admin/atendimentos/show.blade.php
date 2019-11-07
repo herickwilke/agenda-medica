@@ -63,7 +63,7 @@
                             {{ trans('cruds.atendimento.fields.observacoes') }}
                         </th>
                         <td>
-                            {!! $atendimento->observacoes !!}
+                            {{ $atendimento->observacoes }}
                         </td>
                     </tr>
                     <tr>
