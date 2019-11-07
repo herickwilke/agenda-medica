@@ -3,8 +3,9 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.paciente.title') }}
+        <h4> Informações do paciente {{$paciente->nome}}</h4>
     </div>
+
 
     <div class="card-body">
         <div class="mb-2">
@@ -12,7 +13,7 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.paciente.fields.id') }}
+                            ID do paciente
                         </th>
                         <td>
                             {{ $paciente->id }}
@@ -119,39 +120,150 @@
                             {{ trans('cruds.paciente.fields.documento') }}
                         </th>
                         <th>
-                        @if($paciente->documento)
-                                    @foreach($paciente->documento as $key => $media)
-                                        <a href="{{ $media->getUrl() }}" target="_blank">
-                                                {{ trans('global.view_file') }}
-                                        </a><br>
-                                    @endforeach
-                                @endif
+                            @if($paciente->documento)
+                            @foreach($paciente->documento as $key => $media)
+                            <a href="{{ $media->getUrl() }}" target="_blank">
+                                {{ trans('global.view_file') }}
+                            </a><br>
+                            @endforeach
+                            @endif
                         </th>
                     </tr>
                 </tbody>
             </table>
 
-            <br>
-            <br>
+            <br> <br>
 
-            <h3>Observações</h3>
-
-            <br>
-
+            <h4>Observações</h4> 
             @comments(['model' => $paciente])
+            
+            {{-- IMPRIMIR TODOS OS ATENDIMENTOS --}}
+            
+            <br> 
+            <hr> <h4>Imprimir relatório</h4> 
+            <p>Ao clicar no botão abaixo, serão impressos os dados e atendimentos do paciente acima.</p>
+            {{-- Botão imprimir --}}
+            <input type="button" onclick="javascript:window.print();" value="Clique para imprimir">
+            <br><br>
 
-            <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">
-                {{ trans('global.back_to_list') }}
-            </a>
+
+            <br> <br> 
+            <hr>
+            <h4>Todos os atendimentos</h4>
+            
+            
+            @foreach (\App\Atendimento::all()->where('paciente_id', '=', $paciente->id) as $atendimento )
+            
+            
+            
+            <div class="card-body">
+                <div class="mb-2">
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Identificador do atendimento
+                                </th>
+                                <td>
+                                    {{ $atendimento->id }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.atendimento.fields.paciente') }}
+                                </th>
+                                <td>
+                                    {{ $atendimento->paciente->nome ?? '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.atendimento.fields.procedimento') }}
+                                </th>
+                                <td>
+                                    {{ App\Atendimento::PROCEDIMENTO_SELECT[$atendimento->procedimento] }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.atendimento.fields.data') }}
+                                </th>
+                                <td>
+                                    {{ $atendimento->data }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.atendimento.fields.hora') }}
+                                </th>
+                                <td>
+                                    {{ $atendimento->hora }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.atendimento.fields.duracao') }}
+                                </th>
+                                <td>
+                                    {{ App\Atendimento::DURACAO_SELECT[$atendimento->duracao] }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.atendimento.fields.observacoes') }}
+                                </th>
+                                <td>
+                                    {!! $atendimento->observacoes !!}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    {{ trans('cruds.atendimento.fields.documento') }}
+                                </th>
+                                <th>
+                                    @if($atendimento->documento)
+                                    @foreach($atendimento->documento as $key => $media)
+                                    <a href="{{ $media->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a><br>
+                                    @endforeach
+                                    @endif
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <br>
+                    <br>
+                    
+                    <h4>Observações</h4>
+                    
+                    <br>
+                    
+                    @comments(['model' => $atendimento])
+                    
+                    <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
+                
+                
+            </div>
+            @endforeach
+            
+            
+            <hr>    
+            
         </div>
-
+        
+        
         <nav class="mb-3">
             <div class="nav nav-tabs">
-
+                
             </div>
         </nav>
         <div class="tab-content">
-
+            
         </div>
     </div>
 </div>
