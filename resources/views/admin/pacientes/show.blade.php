@@ -152,7 +152,7 @@
             <h4>Todos os atendimentos</h4>
             
             
-            @foreach (\App\Atendimento::all()->where('paciente_id', '=', '1') as $atendimento )
+            @foreach (\App\Atendimento::all()->where('paciente_id', '=', $paciente->id) as $atendimento )
             
             
             
@@ -254,10 +254,6 @@
             
             <hr>    
             
-            
-            <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">
-                {{ trans('global.back_to_list') }}
-            </a>
         </div>
         
         
